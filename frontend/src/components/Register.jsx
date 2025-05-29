@@ -19,9 +19,9 @@ const Register = () => {
         e.preventDefault();
 
         if(password !== password2){
-            alert('Fjalekalimet nuk perputhen')
+            alert('Password does not match')
         } else{
-            alert('Forma u dergua me sukses');
+            alert('You are successfully registered!');
             setFormData({
                  name: '', email: '', password: '', password2: '',
             });
@@ -59,7 +59,7 @@ const Register = () => {
                     </div> 
                     
                     <div className='form-group'>
-                        <button type='submit' className='btn btn-block'>Submit</button>
+                        <button type='submit' className='btn btn-block'>Register</button>
                     </div>                                                                              
                 </form>
             </section>
