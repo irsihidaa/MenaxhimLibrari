@@ -1,10 +1,21 @@
-import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../store/apis/userApi';
+import { setUser } from '../store/slices/userSlice';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-    const [formData, setFormData] = useState({ name: '', password: '' })
-    const { name, password } = formData;
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const[login, {isLoading}] = useLoginMutation();
+    const {user} = useSelector(state => state.user);
+
+
+    const [formData, setFormData] = useState({ email: '', password: '' })
+    const { email, password } = formData;
 
     console.log(formData);
 
@@ -15,12 +26,29 @@ const Login = () => {
         }));
     };
 
-    const onSubmit = (e) => { 
+    const onSubmit = async (e) => {
         e.preventDefault();
-            setFormData({
-                 name: '', password: '',
-            });
+        try{
+        const response = await login(formData);
+        if(response.error){
+            toast.error(response.error.data?.message || response.error.error || 'login failed');
+        }else{
+            dispatch(setUser(response.data));
+            localStorage.setItem('user', JSON.stringify(response.data))
+            navigate('/');
+            toast.success(`Welcome ${response.data.name}!`);
         };
+    }catch(err){
+        console.log('Login failed', err);
+    }
+
+    };
+
+    useEffect(() => {
+        if(user){
+            navigate('/');
+        } 
+    }, [user, navigate]);
 
     return (
         <>
@@ -32,8 +60,8 @@ const Login = () => {
             <section className='form'>
                 <form onSubmit={onSubmit}>
                     <div className='form-group'>
-                        <input required type="text" className='form-control' id="name" name="name"
-                         value={name} placeholder='Please enter your name' onChange={onChange}/>
+                        <input required type="text" className='form-control' id="email" name="email"
+                         value={email} placeholder='Please enter your email' onChange={onChange}/>
                     </div>
 
 
@@ -43,7 +71,7 @@ const Login = () => {
                     </div>
                     
                     <div className='form-group'>
-                        <button type='submit' className='btn btn-block'>Log in</button>
+                        <button type='submit' disabled={isLoading} className='btn btn-block' >{isLoading ? "please wait " : "login"}</button>
                     </div>                                                                              
                 </form>
             </section>
