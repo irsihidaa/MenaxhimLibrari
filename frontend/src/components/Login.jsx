@@ -71,7 +71,7 @@ const Login = () => {
                     </div>
                     
                     <div className='form-group'>
-                        <button type='submit' disabled={isLoading} className='btn btn-block' >{isLoading ? "please wait " : "login"}</button>
+                        <button type='submit' disabled={isLoading} className='btn btn-block' >{isLoading ? "Please wait " : "Login"}</button>
                     </div>                                                                              
                 </form>
             </section>

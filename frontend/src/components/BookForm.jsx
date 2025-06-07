@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import { useSetBooksMutation } from '../store/apis/bookApi';
 
 const BookForm = () => {
+  const navigate = useNavigate();
   const [bookData, setBookData] = useState({
     BookName: '',
     Author: '',
@@ -27,6 +29,7 @@ const BookForm = () => {
     try {
       await setBooks(bookData);
       setBookData({ BookName: '', Author: '', Genre: '' });
+      navigate('/allbooks')
       toast.success('Book added successfully!');
     } catch (err) {
       toast.error(err?.data?.message || 'Something went wrong!');
@@ -37,7 +40,7 @@ const BookForm = () => {
     <section className="form">
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="BookName">Book Name</label>
+          <label htmlFor="BookName" >Book Name</label>
           <input
             type="text"
             id="BookName"

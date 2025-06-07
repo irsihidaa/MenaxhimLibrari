@@ -96,31 +96,90 @@ h1, h2, h3 {
   font-size: 0.95rem;
 }
 
-.goals {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
-}
 
-.goal {
-  background-color: #aaa;
+
+.book {
+  background-color: #ffffff;
   margin: 10px 0;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  padding: 20px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
   text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-.goal .close {
+.book:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.book .title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #18027b;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.book .author,
+.book .genre {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.book .author strong,
+.book .genre strong {
+  color: #18027b;
+}
+
+
+.book .timestamp {
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.book .close {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 12px;
+  right: 16px;
   cursor: pointer;
   border: none;
   background: none;
-  color: #aaa;
-  font-size: 18px;
+  color: #800808;
+  font-size: 20px;
+  transition: color 0.2s ease;
+}
+
+.book .close:hover {
+  color: #c62828;
+}
+
+.book .edit {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #24a53b;
+}
+
+.book .edit:hover {
+  color: #005c09;
+}
+
+.book .edit-input {
+  font-family: 'Karla', sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 10px;
+  background-color: transparent;
+  text-align: center;
+  border: 1px solid gray;
 }
 
 .form,
@@ -239,3 +298,4 @@ h1, h2, h3 {
     font-size: 0.85rem;
   }
 }
+
